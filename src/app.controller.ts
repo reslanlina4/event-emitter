@@ -1,20 +1,14 @@
-import { Controller, Get, Req, UseGuards } from '@nestjs/common';
-import { AppService } from './app.service';
-import { AuthGuard } from '@nestjs/passport';
+import { Controller, Get, Post } from '@nestjs/common';
+import { VideoService } from './video/video.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly videoService: VideoService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
-  }
+@Post('video')
+createVideo(){
+  return this.videoService.publish();
+}
 
-  // @Get protected (require jwt)
-  @UseGuards(AuthGuard('jwt'))
-  @Get('protected')
-  getProtected(@Req() req){
-    return `you're ${req.user.name}`;
-  }
+ 
 }

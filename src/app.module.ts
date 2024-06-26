@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { UsersModule } from './users/users.module';
-import { AuthModule } from './auth/auth.module';
+import { ViewerService } from './viewer/viewer.service';
+import { EventEmitterModule } from '@nestjs/event-emitter';
+import { VideoService } from './video/video.service';
 
 @Module({
-  imports: [UsersModule, AuthModule],
+  imports:[EventEmitterModule.forRoot()],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [VideoService, ViewerService],
 })
 export class AppModule {}
